@@ -323,3 +323,116 @@ ferr(lb);
 lc=la;
 }
 }mer-linklist
+
+栈和队列：限定插入和删除只能在表的“端点”进行的线性表。
+栈：先进后出 后进先出 队列：先进先出
+类型定义：
+typedef struct stack{
+int top;//就是线性表顺序存储结构的length
+StackEntry *elem;//动态分配空间大小为stack_size
+int stack_size;
+}Stack,*StackPtr;
+域elem[0,.....,stack_size]用于存放数据元素；
+我们约定top=-1来表示空栈
+当top=stack_size-1来表示栈y已经满了
+顺序栈的大小是一开始就定义好的 所以会有溢出现象
+
+基本操作：
+顺序栈入栈
+Status Stack_push(StackPtr s,StackEntry item){
+Status outcome = success;
+if(Stack_Full(s))/if(s->top==MAXSTACK-1)/
+outcome = overflow;/栈满则上溢/
+else{
+s->top++;
+s->entry[s->top]=item;/数据元素放入top位置/
+}
+return outcome;
+}
+
+顺序栈出栈
+Status Stack_Pop(StackPtr s,StackEntry *item){
+Status outcome = success;
+if(Stack_Empty(s))
+outcome = underflow;//栈空则下溢
+else
+*item = s->entry[s->top--];//将top所指数据元素放入item，top再减一
+return outcome;
+}
+
+去栈顶元素
+Status Stack_Top(StackPtr s,StackEntry *item){
+Status outcome = success;
+if(Stack_Empty(s))
+outcome = underflow;//栈空则下溢出
+else
+*item = s->entry[s->top];//取出数据，top指针不变
+return outcome;
+}
+
+栈的链式存储
+采用单链表的结点结构 将单链表的首端作为栈顶
+类型定义
+typedef struct node{
+StackEntry entry;
+struct node * next;
+}StackNode,*StackNodePtr;
+typedef struct stack{//链栈的类型定义
+StackNodePtr top;//指向栈顶的指针
+}Stack,*StackPtr;
+空栈时top=NULL;
+
+链栈入栈操作
+Status Stack_Push(StackPtr s,StackEntry item){
+Statsu outcome = success;
+StackNodePtr np= MakeNode(item);//申请结点空间，并装填结点域
+if(n= == NULL)
+outcome = overflow;//无法分配存储空间，相当于栈满上溢
+else{
+np->next = s->next;//所申请到的结点插入在表头
+s->top = np;
+}
+return outcome;
+}
+
+链栈的出栈操作
+Status Stack_Pop(StackPtr s,StackEntry *item){
+Status outcome = success;
+if(Stack_Empty(s))
+outcome = underflow;//栈空则下溢
+else{
+StackNodePtr np=s->top;//删除栈顶元素
+s->top = np->next;
+*item = np->entry;
+free(np);
+}
+return outcome;
+}
+
+链栈去栈顶元素操作的实现
+Status Stack_Top(StackPtr s,StackEntry *item)
+{
+Status outcome = success;
+if(Stack_Empty(s))
+outcome = underflow;//栈空则下溢
+else
+*item = s->top->entry;
+return outcome;
+
+}
+栈的特点与简单应用
+出栈顺序（完全相同 完全相反都是可能的 也有可能先单个入 有的是多个入）
+
+队列：队列是限定只能在表的一端进行插入，在表的另一端进行删除的线性表
+队尾（rear）——允许插入的一端
+队头（front）———允许删除的一端
+特点：先进先出
+
+队列的顺序存储
+类型定义
+#define MAXQUEUE 10
+typedef struct queue
+{
+int front,rear;//队头和队尾指针，指示队头和队尾数据元素的位置
+QueueEntry entry[MAXQUEUE];//数据元素存储空间
+}Queue,*QueuePtr;//定义新的数据类型
