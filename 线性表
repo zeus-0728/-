@@ -144,3 +144,79 @@ S = success;
 }
 return s;
 }
+
+4:单链表的插入操作
+Status LIst_Insert(SqlistPtr L, int pos ,ElemTYpe elem)
+{
+Status status;
+Ptr p,s;
+Status = List_Retrival(L, pos-1,&p);
+if( status == success){
+s=(LinkedPtr)malloc(sizeof(Node));
+if(s){
+S->elem = elem;
+S->next = p->next;
+p->next =s;
+status = success;}
+Else status = fatal;
+}
+Else status = range_error;
+Return status;
+}
+
+5:单链表的删除
+Status List_delete(SqlistPtr L, int pos)
+{
+Status status=fail;
+Ptr s,p;
+Status = List_Retrival(L,pos -1,&p);
+if(status== success)
+{
+s=p->next;
+P->next= s->next;
+free(s);
+s= NULL;
+Status = success;
+}
+Return status;
+}
+
+6:建立单链表(创建一个空的单链表，一次建立各元素结点，并逐个插入链表)
+Status List_create(SqlistPtr L, elemtype data[], int len){
+Status s;
+Ptr p;
+s = List_init(L);
+if(s == success){
+for(int i = len-1;i>=0;--i){
+p=(Ptr)malloc(sizeof(Node));
+if(p){
+p->elem = data[i];
+p->next=(*L)->next;
+(*L)->next = p;
+}
+else{s=fail;break;}
+}
+}
+return s;
+}
+
+7:单链表的变形
+循环单链表（最后一个结点的直接后继是空还是头结点）
+带尾指针的循环单链表（
+1：两个循环单链表的合并
+p=La->next; //保存La的头结点指针
+La->next= Lb->next->next //头尾连接
+free(Lb->next); //释放第二个表的头结点
+Lb->next=p; //组成循环链表
+2：最后一个元素后||第一个元素加新元素
+）
+双向链表（elem前后各有一个指针 来这样进行连接）
+（双向链表的插入操作
+S->next = p->next;
+p->next=s;
+S->next->prior =s;
+S->prior =p;
+双向链表的删除操作
+P->next=p->next->next;
+P->next->prior = p;）
+静态链表（数据元素的存储空间像顺序表一样是事先静态分配的 数据元素之间的关系是像链表一样显示的）
