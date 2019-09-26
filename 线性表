@@ -1,1 +1,78 @@
 hello
+数据结构学习
+
+1：自定义线性表（顺序存储结构）
+#define LIST_INIT_SIZE 100
+#define LIST_INCREMENT 10
+
+typedef int ElemType;
+
+typedef struct SqList
+{
+ElemType *elem;
+int length;
+int list_size;
+}SqList, *Ptr;
+typedef Ptr sqlListpPtr;
+
+2:初始化-创建线性表
+Status :List_init(SqListPtr L)
+{
+status s= success;
+L->List_size=LIST_INIT_SIZE;
+L->length =0;
+L->elem=(Elem Type *)malloc(sizeof(Elem type)*L->list_size);
+if(L->elem == NULL)
+s=fatal;
+return s;
+}
+
+3:线性表查找（按位置查找值）
+Status List_Retrival(SqListPtr L, int pos, ElemType *elem)
+{
+Status s = range_error;
+if(L){
+if((pos-1) >= 0 && (pos-1) < L->length){
+*elem = L->elem[pos-1];
+s = success;
+}
+}
+else
+s = fatal;
+return s;
+}
+
+线性表查找（按值查找位置）
+Status List_Locate(SqlistPtr L, ElemType elem, int *pos)
+{
+Status s = range_error;
+if(L){
+for(int i = 0;i < L->length; ++i){
+if(l->elem[i]==elem){
+*pos = i+1;
+s = success;
+break;
+}
+}
+}
+else s= fatal;
+return s;
+}
+
+4:线性表的插入
+Status List_Insert(SqlistPtr L,int pos, ElemType elem)
+{
+Status s =range_error;
+if((pos-1) >= 0 && (pos-1) <= L->length){
+if(L && L->length < L->list_size){
+for(int i = L->length-1; i >= pos-1;--i){
+L->elem[i+1] =L->elem[i];
+}
+L->elem[pos-1]= elem;
+L->length++;
+s = success;
+}
+}
+else s fail;
+return s;
+}
