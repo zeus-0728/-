@@ -436,3 +436,57 @@ typedef struct queue
 int front,rear;//队头和队尾指针，指示队头和队尾数据元素的位置
 QueueEntry entry[MAXQUEUE];//数据元素存储空间
 }Queue,*QueuePtr;//定义新的数据类型
+
+假溢出就看做循环数组 用%
+
+循环顺序队列-判断空还是满
+1：用一个计数变量来记载队列中的元素个数
+。初始化队列c=0
+。入队时 c++
+。出队时 c--
+当计数变量c=MAXSIZE时 队满
+当c=0时 队空
+2：设一个标志位来区别队列是空还是满（重点是循环）
+初始化队列时：sq->front =sq->rear，标志位为false
+入队后 使sq-> front = sq->rear 置标志位为true
+出队后 使标志位为false
+当sq->front = sq->rear 且标志位为true时 队满
+当sq->front=sq->rear 且标志位为false时 队空
+其他为非空非满
+3:牺牲一个元素空间，来区别队空队满（优先使用第三种方案）
+入队前 先判sq->rear+1 是否等于sq->front 若是则为队满
+而当sq->front == sq->rear时 为队空（把front不输入值）
+
+队列的:链式存储结构(头删除 尾插入)
+类型定义
+typedef struct node{//链式队列的结点结构
+QueueEntry Entry;//队列的数据元素类型
+struct node *next;//指向后继结点的指针
+}QueueNode,&QueueNodePtr;
+typedef struct queue{//链式队列
+QueueNode *front;//对头指针
+QueueNode *rear;//队尾指针
+}Queue,*QueuePtr;
+
+//一个元素的插入(多个可以依次类推）
+初始化（头结点）
+Q->front->next=NULL;
+Q->rear->next=NULL;
+x结点（入队）
+px=new Qnode;
+px->data=x;
+px->next=NULL;
+Q->rear->next = px;(原来的尾部是空的 现在指向了新的结点)
+Q->rear = px;（新的结点又变成了整个队列的尾部）
+
+//出队操作
+px=Q->front->next;(确定出队的结点)
+Q->front->next=Q->front->next->next;(使删除前面的哪个指针越过要被删除的结点 指到它后面的结点上)
+free(px);//释放该结点
+
+//队列的应用：
+银行排队模拟系统，得到顾客平均排队时间
+1：为什么用模拟系统
+2：模拟系统的主要操作
+3：算法实现
+4：假如有不同的优先级（普通顾客，VIP客户），采用什么样的存储结构更为合适
