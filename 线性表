@@ -76,3 +76,71 @@ s = success;
 else s fail;
 return s;
 }
+
+5：线性表的删除
+Status List_delete(SqlistPtr L,int pos)
+{
+Status s = range_error;
+if((pos)-1 >= 0 && (pos-1) < l->length){
+if(L && L->length > 0){
+for(int i = pos; i < L-> length; ++i){
+L->elem[i-1]=L->elem[i];
+s= success;
+}
+}
+}
+else s = fall;
+Return s;
+}
+
+线性表的链式存储（单链表）
+1：定义两个结点 并将其串成单链表
+Typedef struct Node
+{
+ElemType elem;
+Struct Node *next;
+}Node,*Ptr;
+Typedef Ptr *SqlistPtr;
+Node n1,n2;
+Ptr p=&n1;
+n1.next=&n2;
+Ptr L =p;
+N2.next=NULL;
+
+2:单链表的位置查找
+Status List_Retrieve(SqlistPtr L, int pos, ElemType *elem)
+{
+Status s = range_error;
+Ptr p =(*L)->next;
+int i = 1;
+while(p && I < pos){
+{
+i++;
+p=p->next;
+}
+if(p && I==pos)
+{
+*elem = p->data;
+s= success;
+}
+}
+return s;
+}
+
+3: 单链表的按值查找
+Status List_Locate(SqlistPtr L, ElemType elem,int *pos)
+{
+Status s = range_error;
+Ptr p =(*L)->next;
+int i = 1;
+while(p != NULL){
+if(p->elem ==elem)break;
+i++;
+p=p->next;
+}
+if(p){
+*pos = I;
+S = success;
+}
+return s;
+}
