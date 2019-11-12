@@ -5,3 +5,19 @@ while(R[i].key!=key)
   i=i-1;
   return i;
 }
+
+#折半查找（在有序表里，通过对查找的数值与表的中值进行比较，缩小二分之一的查找范围，并将这个过程放入循环里）
+low指示查找区间的下界，high指示查找区间的上界，mid=（low+high）/2，-1一进就可以了
+查找失败的条件low>high
+int BinarySearch(DataType SL[],KeyType key,int n){
+int low=1;
+int high=n;
+while(low<=high)
+{
+  mid=(low+high)/2;
+  if(key==SL[mid].key){return mid;}
+  else if(key>SL[mid].key)low=mid+1;
+    else high = mid-1;
+}
+  return 0;
+}
