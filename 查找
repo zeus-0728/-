@@ -1,0 +1,7 @@
+#顺序查找(从表中指定位置，一般为最后一个，第零个位置设为岗哨，沿某个方向将记录的关键词与定值进行比较来查找)
+int srqsearch(DataType R[],KeyType key){
+R[0].key=key,i=n;
+while(R[i].key!=key)
+  i=i-1;
+  return i;
+}
