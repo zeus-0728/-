@@ -21,3 +21,22 @@ while(low<=high)
 }
   return 0;
 }
+
+#索引查找(快速定位查找范围，适用于数据量巨大且无序,先分块使其块间有序，快速定位到块)
+索引(最大关键值)项，位置(指针)项
+索引表的查找可以用顺序或折半查找,需另设一个块
+int IndexSequelSearch(IndexType ls[],DataType s[],int m,KeyType key)
+{
+  i=0;
+  while(i<m&&key>ls[i].key)i++;/*块间查找*/
+  if(i==m)return -1;//查找失败
+  else//在块内顺序查找
+  {
+    j=ls[i].link;
+    while(Key!=s[j].key&&j<ls[i+1].link)j++;
+    if(key==s[j].key)return j;//查找成功
+    else return -1;//查找失败
+  }
+  
+}
+
