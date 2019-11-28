@@ -56,3 +56,11 @@ void PreInOrd(char preord[],char inord[],int i,int j,int k,int h,BiTree *t){
   if(m==h)(*t)->child=NULL;//递归调用右子树，右子树为空
   else PreInOrd(preord,inord,i+m-k+1,j,m+1,h,&((*t)->lchild)));
 }
+
+#统计叶子结点的算法实现
+int ConutLeaf(BiTree T)
+{
+  if(T==NULL)return 0;
+  if(T->lchild==NULL&&T->rchild==NULL)return 1;
+    return CountLeaf(T->lchild)+CountLeaf(T->rchild);
+}
