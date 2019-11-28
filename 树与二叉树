@@ -1,0 +1,26 @@
+#先序遍历算法
+void PreOrder(BiTree bt){
+  if(bt!=NULL){//如果为空则结束
+    visit(bt->data);//访问根节点
+    PreOrder(bt->lchild);//先序遍历左子树
+    PreOrder(bt->rchild);//先序遍历右子树
+    }
+}
+
+#中序遍历算法
+void InOrder(BiTree bt){
+  if(bt!=NULL){//如果为空则结束
+    InOrder(bt->lchild);中序遍历左子树
+    visit(bt->data);//访问根节点
+    InOrder(bt->rchild);//中序遍历右子树
+  }  
+}
+
+#后序遍历算法
+void LaOrder(BiTree bt){
+  if(bt!=NULL){//如果为空则结束
+    LaOrder(bt->lchild);//后序遍历左子树
+    LaOrder(bt->rchild);//后序遍历右子树
+    visit(bt->data);//访问根节点
+  }
+}
